@@ -1,0 +1,17 @@
+{
+    "tasks": [
+        {
+            "label": "build debug meson",
+            "type": "shell",
+            "command": "meson setup builddir --buildtype=debug --strip -Db_lto=true -Dprebuilt_server=./scrcpy-server; ninja -C builddir",
+            // "command": "meson setup builddir --buildtype=debug --strip -Db_lto=true -Dprebuilt_server=./scrcpy-server && ninja -C builddir",
+        },
+        {
+            "label": "build release meson",
+            "type": "shell",
+            "command": "meson setup builddir --buildtype=release --strip -Db_lto=true -Dprebuilt_server=./scrcpy-server; ninja -C builddir",
+            // "command": "meson setup builddir --buildtype=debug --strip -Db_lto=true -Dprebuilt_server=./scrcpy-server && ninja -C builddir",
+        }
+    ],
+    "version": "2.0.0"
+}

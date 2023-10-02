@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "name": "Debug with Meson",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}\\builddir\\app\\scrcpy.exe",
+            "MIMode": "gdb",
+            "cwd": "${workspaceRoot}",
+            "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\gdb.exe",
+            "preLaunchTask": "build debug meson"
+   
+        }
+    ]
+}
