@@ -3,13 +3,19 @@
         {
             "label": "build debug meson",
             "type": "shell",
-            "command": "meson setup builddir --buildtype=debug --strip -Db_lto=true -Dprebuilt_server=./scrcpy-server; ninja -C builddir",
+            "command": "meson setup builddir --buildtype=debug; ninja -C builddir",
             // "command": "meson setup builddir --buildtype=debug --strip -Db_lto=true -Dprebuilt_server=./scrcpy-server && ninja -C builddir",
         },
         {
             "label": "build release meson",
             "type": "shell",
             "command": "meson setup builddir --buildtype=release --strip -Db_lto=true -Dprebuilt_server=./scrcpy-server; ninja -C builddir",
+            // "command": "meson setup builddir --buildtype=debug --strip -Db_lto=true -Dprebuilt_server=./scrcpy-server && ninja -C builddir",
+        },
+        {
+            "label": "Create compile_commands",
+            "type": "shell",
+            "command": "cd builddir;ninja -t compdb c_COMPILER cpp_COMPILER > compile_commands.json",
             // "command": "meson setup builddir --buildtype=debug --strip -Db_lto=true -Dprebuilt_server=./scrcpy-server && ninja -C builddir",
         }
     ],
