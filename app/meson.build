@@ -1,5 +1,4 @@
 src = [
-    'src/main.c',
     'src/adb/adb.c',
     'src/adb/adb_device.c',
     'src/adb/adb_parser.c',
@@ -221,12 +220,19 @@ conf.set('HAVE_USB', usb_support)
 configure_file(configuration: conf, output: 'config.h')
 
 src_dir = include_directories('src')
-
-executable('scrcpy', src,
+scr_src = src + 'src/main.c'
+executable('scrcpy', scr_src,
            dependencies: dependencies,
            include_directories: src_dir,
            install: true,
            c_args: [])
+
+scrcpy_lib=library('scrcpy_lib', src,
+           dependencies: dependencies,
+           include_directories: src_dir,
+           install: true,
+           c_args: [])
+
 
 # <https://mesonbuild.com/Builtin-options.html#directories>
 datadir = get_option('datadir') # by default 'share'
@@ -304,7 +310,8 @@ if get_option('buildtype') == 'debug'
         ]],
         ['test_vector', [
             'tests/test_vector.c',
-        ]],
+        ]]
+
     ]
 
     foreach t : tests
@@ -315,4 +322,9 @@ if get_option('buildtype') == 'debug'
                          c_args: ['-DSDL_MAIN_HANDLED', '-DSC_TEST'])
         test(t[0], exe)
     endforeach
+
+    executable('test_demo','tests/test_demo.c',src,include_directories: src_dir,
+                                                                            dependencies: dependencies,
+                                                                            c_args: ['-DSDL_MAIN_HANDLED', '-DSC_TEST'],
+                                                                            link_with : scrcpy_lib)
 endif
